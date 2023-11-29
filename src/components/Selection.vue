@@ -1,4 +1,6 @@
 <script>
+import playerSelectAudio from '../assets/sounds/playerSelect.wav'
+
 export default {
   props: {
     selfDetails: {
@@ -8,7 +10,7 @@ export default {
   },
   data() {
     return {
-      remainingRunCount: 6 + Math.floor(Math.random() * 4),
+      remainingRunCount: 3 + Math.floor(Math.random() * 4),
       intervalId: null,
       players: [
         {
@@ -36,11 +38,12 @@ export default {
     updateSelected() {
       // This function iterates through
 
-      this.remainingRunCount--
+      let audio = new Audio(playerSelectAudio)
+      audio.play()
 
-      if (this.remainingRunCount < 1) {
-        this.stopInterval()
-      }
+      console.log(this.players)
+
+      this.remainingRunCount--
 
       for (let n = 0; n < this.players.length; n++) {
         if (this.players[n].selected == true) {
@@ -51,6 +54,10 @@ export default {
           break
         }
       }
+
+      if (this.remainingRunCount < 1) {
+        setTimeout(this.stopInterval(), 1000)
+      }
     },
     stopInterval() {
       clearInterval(this.intervalId)
@@ -59,16 +66,19 @@ export default {
 
       for (let n = 0; n < this.players.length; n++) {
         if (this.players[n].selected == true) {
-          selectedPlayer = (n + 1) % this.players.length
+          selectedPlayer = (n + 2) % this.players.length
         }
       }
 
       // Okay so I'm not sure why but I'm having to do the above to actually get the selected player.
-      // Pretty sure this will come back to bite me later.
+      // Pretty sure this will come back to bite me later. Again made it +2 to actually correspond to what's being shown on the UI.
+      // Not a 100% sure but let's fix later
 
       console.log(`selected opponent is: ${this.players[selectedPlayer].name}`)
 
       setTimeout(this.$emit('opponentSelected', this.players[selectedPlayer].name), 4000)
+
+      // changing the time here hasn't been helping, unclear why
     }
   }
 }

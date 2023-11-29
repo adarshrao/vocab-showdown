@@ -1,8 +1,11 @@
 <script>
 import OneGudda from './OneGudda.vue'
 
+import crowdSound from '../assets/sounds/crowdCheer.flac'
+
 export default {
   props: {
+    currentRound: Number,
     winner: {
       type: String,
       required: true
@@ -39,13 +42,16 @@ export default {
       this.$emit('resetGame')
     }
   },
-  components: { OneGudda }
+  components: { OneGudda },
+  mounted() {
+    new Audio(crowdSound).play()
+  }
 }
 </script>
 
 <template>
   <div class="flex flex-col items-center mt-72">
-    <div class="text-white font-semibold mb-8">Round 1 Winner</div>
+    <div class="text-white font-semibold mb-8">Round {{ currentRound }} Winner</div>
 
     <div class="flex flex-row items-center gap-4 text-white mb-32">
       <div class="text-4xl">{{ getWinner().name }}</div>

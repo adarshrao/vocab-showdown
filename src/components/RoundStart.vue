@@ -1,7 +1,9 @@
 <script>
+import dingAudio from '../assets/sounds/dingding.wav'
+
 export default {
   data() {
-    return { countDown: 4, intervalId: null }
+    return { countDown: 3, intervalId: null }
   },
   methods: {
     decreaseCount() {
@@ -26,6 +28,10 @@ export default {
     console.log('Start Countdown')
     this.countDown += -1
     this.startInterval()
+
+    let audio = new Audio(dingAudio)
+
+    audio.play()
   }
 }
 </script>

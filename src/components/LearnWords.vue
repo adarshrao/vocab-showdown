@@ -18,7 +18,7 @@ export default {
     return {
       wordMeanings: wordList,
       words: [],
-      secondsRemaining: 1,
+      secondsRemaining: 15,
       timer: null,
       selectedWord: 0
     }

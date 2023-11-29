@@ -1,6 +1,8 @@
 <script>
 import OneGudda from './OneGudda.vue'
 
+import fightAudio from '../assets/sounds/fight.wav'
+
 export default {
   props: {
     selfDetails: {
@@ -13,23 +15,19 @@ export default {
     }
   },
   data() {
-    return {
-      // selfDetails: {
-      //   name: 'Adarsh',
-      //   avatar: `1`
-      // },
-      // opponent: {
-      //   name: 'Abigail',
-      //   avatar: `2`
-      // }
-    }
+    return {}
   },
   components: { OneGudda },
 
   mounted() {
     setTimeout(() => {
-      this.$emit('startRound')
+      let audio = new Audio(fightAudio)
+      audio.play()
     }, 1000)
+
+    setTimeout(() => {
+      this.$emit('startRound')
+    }, 3500)
   }
 }
 </script>

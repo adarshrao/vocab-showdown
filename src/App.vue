@@ -10,6 +10,8 @@ import RoundWinner from './components/RoundWinner.vue'
 
 import { wordList } from './assets/wordList'
 
+import audioFile from './assets/sounds/select.wav'
+
 // fetch length of wordList
 // pick 3 random words from it with no repetitions (or just shuffle it and pick the first 3)
 // then, replace them with the round's words
@@ -20,7 +22,7 @@ import { wordList } from './assets/wordList'
 export default {
   data() {
     return {
-      gameState: 'vsScreen',
+      gameState: 'lobby',
       // lobby, waiting, starting, round, selection, vsScreen, learnWords, showdownTime
       selfDetails: {
         name: 'Shardo',
@@ -28,6 +30,8 @@ export default {
       },
       pickedWords: [],
       winner: '',
+      currentRound: 1,
+      correctCount: '',
       opponent: {
         name: 'Jahangir',
         avatar: '2'
@@ -42,23 +46,31 @@ export default {
           avatar: '2'
         },
         {
-          name: 'Abigail',
-          avatar: '4'
+          name: 'Pandey',
+          avatar: '6'
         }
       ]
     }
   },
   methods: {
+    playSelect() {
+      const audio = new Audio(audioFile)
+      audio.volume = 1
+      audio.play()
+    },
     switchState(value) {
       console.log(`Transitioning from ${this.gameState} to ${value}`)
       this.gameState = value
     },
     addPlayer() {
-      this.players.push({
-        name: this.selfDetails.name,
-        avatar: '5'
-      })
-      this.switchState('starting')
+      this.playSelect()
+      if (this.selfDetails.name != '') {
+        this.players.unshift({
+          name: this.selfDetails.name,
+          avatar: '5'
+        })
+        this.switchState('starting')
+      } else console.log('No name entered')
     },
     testEvent() {
       console.log('Event received')
@@ -107,6 +119,10 @@ export default {
       // }
 
       console.log(this.pickedWords)
+    },
+    startNextRound() {
+      this.currentRound++
+      this.switchState('selection')
     }
   },
   components: {
@@ -160,9 +176,10 @@ export default {
           type="text"
           v-model="selfDetails.name"
           placeholder="Enter your Name"
+          autofocus
         />
         <div
-          class="bg-white text-center font-semibold rounded-md py-2 px-4 cursor-pointer border w-full px-2"
+          class="bg-white hover:opacity-90 text-center font-semibold rounded-md py-2 px-4 cursor-pointer border w-full px-2"
           @click="addPlayer()"
         >
           Enter the Ring
@@ -227,11 +244,12 @@ export default {
     ></ShowDown>
 
     <RoundWinner
+      :currentRound="currentRound"
       :selfDetails="selfDetails"
       :opponent="opponent"
       :winner="winner"
       v-if="gameState == 'revealWinner'"
-      @resetGame="switchState('selection')"
+      @resetGame="startNextRound"
     ></RoundWinner>
   </div>
 </template>

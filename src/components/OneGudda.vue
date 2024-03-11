@@ -21,6 +21,7 @@ export default {
 <template>
   <div class="flex flex-col items-center">
     <div class="px-2 py-1 mb-2 bg-black/40 rounded-md text-white">{{ name }}</div>
-    <img :class="check()" class="w-max" :src="'src/assets/guddas/' + avatar + '.png'" alt="" />
+    <!-- <img :class="check()" class="w-max" :src="'src/assets/guddas/' + avatar + '.png'" alt="" /> -->
+    <img :class="check()" class="w-max" :src="'/assets/guddas/' + avatar + '.png'" alt="" />
   </div>
 </template>

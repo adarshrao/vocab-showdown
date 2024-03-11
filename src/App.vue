@@ -25,7 +25,7 @@ export default {
       gameState: 'lobby',
       // lobby, waiting, starting, round, selection, vsScreen, learnWords, showdownTime
       selfDetails: {
-        name: 'Shardo',
+        name: 'Singh',
         avatar: '5'
       },
       pickedWords: [],

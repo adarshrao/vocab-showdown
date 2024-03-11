@@ -93,7 +93,8 @@ export default {
     <div class="flex flex-row mx-auto justify-center mt-64 items-center">
       <div class="flex flex-col items-center mr-32">
         <div class="px-2 py-1 mb-2 bg-black/40 rounded-md text-white">{{ selfDetails.name }}</div>
-        <img class="w-max" :src="'src/assets/guddas/' + selfDetails.avatar + '.png'" alt="" />
+        <!-- <img class="w-max" :src="'src/assets/guddas/' + selfDetails.avatar + '.png'" alt="" /> -->
+        <img class="w-max" :src="'/assets/guddas/' + selfDetails.avatar + '.png'" alt="" />
       </div>
 
       <div class="flex justify-center flex-col items-center">
@@ -106,7 +107,8 @@ export default {
               <div class="px-2 py-1 mb-2 bg-black/40 rounded-md text-white">
                 {{ item.name }}
               </div>
-              <img class="w-max" :src="'src/assets/guddas/' + item.avatar + '.png'" alt="" />
+              <!-- <img class="w-max" :src="'src/assets/guddas/' + item.avatar + '.png'" alt="" /> -->
+              <img class="w-max" :src="'/assets/guddas/' + item.avatar + '.png'" alt="" />
             </div>
           </div>
         </div>
